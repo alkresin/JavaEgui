@@ -16,8 +16,7 @@ class Test1 {
       Egui.Menu( "" );
          Egui.Menu( "File" );
             Egui.AddMenuItem( "Test1", 0, "hwg_MsgInfo(\"Test\")" );
-            Egui.AddMenuItem( "Test2", 0, (s) -> fu0(s), "fu0", new String[] { "FuTest" } );
-            Egui.AddMenuItem( "Info", 0, (s) -> fu2(s), "fu2", null );
+            Egui.AddMenuItem( "Info", 0, (s) -> fu2(s), "fu2", new String[] { "FuTest" } );
             Egui.AddMenuSeparator();
             Egui.AddMenuItem( "Exit", 0, "hwg_EndWindow()" );
          Egui.EndMenu();
@@ -38,13 +37,6 @@ class Test1 {
       oWnd.Activate();
    }
 
-   public static String[] fu0( String[] params ) {
-
-      System.out.println( "fu0!" );
-      System.out.println( params[0] + "/" + params[1] );
-      return null;
-   }
-
    public static String[] fu1( String[] params ) {
 
       wLbl1.SetText( "Новый текст." );
@@ -56,7 +48,7 @@ class Test1 {
    public static String[] fu2( String[] params ) {
 
       Egui.MsgInfo( Egui.GetVersion(1), "Version" );
-      System.out.println( "fu2!" );
+      System.out.println( "fu2: " + params[0] + "/" + params[1] );
       return null;
    }
 
