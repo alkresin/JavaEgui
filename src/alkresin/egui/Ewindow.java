@@ -32,7 +32,6 @@ public class Ewindow extends Ewidget {
    public static Ewindow InitDialog( int x, int y, int w, int h, String title, String[] arr ) {
 
       Ewindow oWnd = new Ewindow();
-      String sProps = "";
 
       oWnd.sType = "dialog";
 
@@ -44,8 +43,9 @@ public class Ewindow extends Ewidget {
       oWnd.aProps = null;
       oWnd.AddProps( arr );
 
+      String sProps = "[\"" + oWnd.sName + "\"]";
       String s = "[\"crdialog\",[" + x + "," + y + "," + w + "," + h +
-         ",\"" + title + "\"]" + sProps + "]";
+         ",\"" + title + "\"]," + sProps + "]";
 
       Egui.WriteOut( s );
 
