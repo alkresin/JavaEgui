@@ -43,8 +43,8 @@ public class Ewindow extends Ewidget {
       oWnd.aProps = null;
       oWnd.AddProps( arr );
 
-      String sProps = "[\"" + oWnd.sName + "\"]";
-      String s = "[\"crdialog\",[" + x + "," + y + "," + w + "," + h +
+      String sProps = "null";
+      String s = "[\"crdialog\",\"" + oWnd.sName + "\",[" + x + "," + y + "," + w + "," + h +
          ",\"" + title + "\"]," + sProps + "]";
 
       Egui.WriteOut( s );
