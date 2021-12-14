@@ -37,17 +37,17 @@ public class Ewindow extends Ewidget {
       oWnd.sType = "dialog";
 
       iDialogCount ++;
+      if ( aDialogs == null )
+         aDialogs = new ArrayList<Ewindow>();
+      aDialogs.add( oWnd );
       oWnd.sName = "d" + iDialogCount;
       oWnd.aProps = null;
       oWnd.AddProps( arr );
 
-      /*
-      String s = "[\"crmainwnd\",[" + x + "," + y + "," + w + "," + h +
+      String s = "[\"crdialog\",[" + x + "," + y + "," + w + "," + h +
          ",\"" + title + "\"]" + sProps + "]";
 
       Egui.WriteOut( s );
-      */
-      aDialogs.add( oWnd );
 
       return oWnd;
 
@@ -56,15 +56,38 @@ public class Ewindow extends Ewidget {
    public static Ewindow Get( String name ) {
 
       name = name.toLowerCase();
-      if ( name == "main" )
+      if ( name.equals( "main" ) )
          return oWndMain;
+      else {
+         for (int i = 0; i < aDialogs.size(); i++) {
+            Ewindow o = aDialogs.get(i);
+            if ( o.sName.equals( name ) )
+               return o;
+         }
+      }
 
       return null;
    }
 
+   public void Delete() {
+
+      if ( !sName.equals( "main" ) )
+         for (int i = 0; i < aDialogs.size(); i++) {
+            Ewindow o = aDialogs.get(i);
+            if ( o.sName.equals( sName ) )
+               aDialogs.remove(i);
+         }
+   }
+
    public void Activate() {
 
-      String s = "[\"actmainwnd\",[\"f\"]]";
+      String s;
+
+      if ( sType.equals( "window" ) )
+         s = "[\"actmainwnd\",[\"f\"]]";
+      else
+         s = "[\"actdialog\",\"" + sName + "\",\"f\",[\"f\"]]";
+
       Egui.WriteOut( s );
       Egui.Wait();
    }

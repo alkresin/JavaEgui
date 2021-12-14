@@ -336,15 +336,27 @@ public class Egui {
          }
       }
       else if( cmd.equals( "endapp" ) ) {
-         //bEndProg = true;
-      }
-      else if( cmd.equals( "exit" ) ) {
+         WriteIn( "Goodbye" );
+         try { Thread.sleep( 100 ); } catch (InterruptedException e) {}
          bEndProg = true;
-         WriteIn( "Ok" );
-         bSend = true;
          Exit();
       }
       else if( cmd.equals( "exit" ) ) {
+         WriteIn( "Ok" );
+         bSend = true;
+
+         nPos = sBuff.indexOf( '"', nPos2+1 ) + 1;
+         nPos2 = sBuff.indexOf( '"', nPos );
+         if (nPos > 0 && nPos2 > nPos ) {
+            String sName = sBuff.substring( nPos, nPos2 );
+            //System.out.println( sName );
+            if ( sName.equals( "main" ) ) {
+            } else {
+               Ewindow o = Ewindow.Get( sName );
+               if ( o != null )
+                  o.Delete();
+            }
+         }
       }
 
       if (!bSend )
@@ -436,6 +448,30 @@ public class Egui {
       Egui.pFuncs.put( sProcName, func );
       String s = "[\"common\",\"mstop\",\"" + sProcName + "\",\"" + sName + "\"," +
          String2Json(sMessage) + ",\"" + sTitle + "\"]";
+      Egui.WriteOut( s );
+   }
+
+   public static void MsgYesNo( String sMessage, String sTitle, CBFunc func, String sProcName, String sName ) {
+
+      Egui.pFuncs.put( sProcName, func );
+      String s = "[\"common\",\"myesno\",\"" + sProcName + "\",\"" + sName + "\"," +
+         String2Json(sMessage) + ",\"" + sTitle + "\"]";
+      Egui.WriteOut( s );
+   }
+
+   public static void MsgGet( String sMessage, String sTitle, CBFunc func, String sProcName, String sName ) {
+
+      Egui.pFuncs.put( sProcName, func );
+      String s = "[\"common\",\"mget\",\"" + sProcName + "\",\"" + sName + "\"," +
+         String2Json(sMessage) + ",\"" + sTitle + "\",null]";
+      Egui.WriteOut( s );
+   }
+
+   public static void Choice( String[] arr, String sTitle, CBFunc func, String sProcName, String sName ) {
+
+      Egui.pFuncs.put( sProcName, func );
+      String s = "[\"common\",\"mget\",\"" + sProcName + "\",\"" + sName + "\"," +
+         Arr2Json(arr) + ",\"" + sTitle + "\",null]";
       Egui.WriteOut( s );
    }
 

@@ -75,7 +75,8 @@ public class Ewidget {
 
    public void SetColor( int tColor, int bColor ) {
 
-      String s = "[\"set\",\"" + sName + "\",\"color\",{" + tColor + "," + bColor + "}]";
+      String s = "[\"set\",\"" + sName + "\",\"color\",[" +
+         ((tColor==-1)? "null" : tColor) + "," + ((bColor==-1)? "null" : bColor) + "]]";
       Egui.WriteOut( s );
    }
 

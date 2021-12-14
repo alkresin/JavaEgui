@@ -17,6 +17,8 @@ class Test1 {
          Egui.Menu( "File" );
             Egui.AddMenuItem( "Test1", 0, "hwg_MsgInfo(\"Test\")" );
             Egui.AddMenuItem( "Info", 0, (s) -> fu2(s), "fu2", new String[] { "FuTest" } );
+            Egui.AddMenuItem( "MsgYesNo", 0, (s) -> fu3(s), "fu3", null );
+            Egui.AddMenuItem( "Dialog", 0, (s) -> CreateDialog(s), "CreateDialog", null );
             Egui.AddMenuSeparator();
             Egui.AddMenuItem( "Exit", 0, "hwg_EndWindow()" );
          Egui.EndMenu();
@@ -40,15 +42,36 @@ class Test1 {
    public static String[] fu1( String[] params ) {
 
       wLbl1.SetText( "Новый текст." );
-      System.out.println( "fu1!" );
-      System.out.print( " " + params[0] );
+      wLbl1.SetColor( 14939901, 3549952 );
+      //System.out.println( "fu1!" );
+      //System.out.print( " " + params[0] );
       return null;
    }
 
    public static String[] fu2( String[] params ) {
 
-      Egui.MsgInfo( Egui.GetVersion(1), "Version" );
-      System.out.println( "fu2: " + params[0] + "/" + params[1] );
+      Egui.MsgInfo( Egui.GetVersion(2), "Version" );
+      //System.out.println( "fu2: " + params[0] + "/" + params[1] );
+      return null;
+   }
+
+   public static String[] fu3( String[] params ) {
+
+      if ( params[0].equals( "menu" ) )
+         Egui.MsgYesNo( "My question?", "Box", (s) -> fu3(s), "fu3", "mm1" );
+      else if ( params[0].equals( "mm1" ) )
+         Egui.MsgInfo( (params[1].equals("t")? "Yes" : "No"), "Answer" );
+      return null;
+   }
+
+   public static String[] CreateDialog( String[] params ) {
+
+      Ewindow oDlg = Ewindow.InitDialog( 50, 50, 400, 300, "Egui dialog test", null );
+
+      Ewidget wBtn1 = oDlg.Add( "button", 150, 220, 100, 32, "Ok", null );
+
+      oDlg.Activate();
+
       return null;
    }
 
