@@ -5,7 +5,7 @@ import alkresin.egui.*;
 
 class Test1 {
 
-   static Ewidget wLbl1;
+   //static Ewidget wLbl1;
 
    public static void main(String data[]) {
 
@@ -27,7 +27,7 @@ class Test1 {
          Egui.EndMenu();
       Egui.EndMenu();
 
-      wLbl1 = oWnd.Add( "label", 220, 20, 160, 24, "This is a test", new String[] {"name:lbl1"} );
+      oWnd.Add( "label", 220, 20, 160, 24, "This is a test", new String[] {"name:lbl1"} );
 
       Ewidget wBtn1 = oWnd.Add( "button", 250, 180, 100, 32, "Version", null );
       wBtn1.SetCallbackProc( "onclick", "hwg_msginfo( hwg_version() )" );
@@ -41,8 +41,13 @@ class Test1 {
 
    public static String[] fu1( String[] params ) {
 
-      wLbl1.SetText( "Новый текст." );
-      wLbl1.SetColor( 14939901, 3549952 );
+      Ewidget wLbl1 = Ewidget.Widg( "main.lbl1" );
+      if( wLbl1 == null )
+         System.out.println( "lbl1 not found" );
+      else {
+         wLbl1.SetText( "Новый текст." );
+         wLbl1.SetColor( 14939901, 3549952 );
+      }
       //System.out.println( "fu1!" );
       //System.out.print( " " + params[0] );
       return null;

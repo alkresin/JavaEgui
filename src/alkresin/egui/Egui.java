@@ -352,7 +352,7 @@ public class Egui {
             //System.out.println( sName );
             if ( sName.equals( "main" ) ) {
             } else {
-               Ewindow o = Ewindow.Get( sName );
+               Ewindow o = Ewindow.Wnd( sName );
                if ( o != null )
                   o.Delete();
             }
@@ -473,6 +473,21 @@ public class Egui {
       String s = "[\"common\",\"mget\",\"" + sProcName + "\",\"" + sName + "\"," +
          Arr2Json(arr) + ",\"" + sTitle + "\",null]";
       Egui.WriteOut( s );
+   }
+
+   public static void EvalProc( String sCode ) {
+
+      String s = "[\"evalcode\"," + String2Json(sCode) + "]";
+
+      Egui.WriteOut( s );
+   }
+
+   public static String EvalFunc( String sCode ) {
+
+      String s = "[\"evalcode\"," + String2Json(sCode) + ",\"t\"]";
+
+      Egui.WriteOut( s );
+      return Egui.GetStringOut().substring( 1 );
    }
 
    public static String GetVersion( int n ) {

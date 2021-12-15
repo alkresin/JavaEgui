@@ -53,7 +53,7 @@ public class Ewindow extends Ewidget {
 
    }
 
-   public static Ewindow Get( String name ) {
+   public static Ewindow Wnd( String name ) {
 
       name = name.toLowerCase();
       if ( name.equals( "main" ) )

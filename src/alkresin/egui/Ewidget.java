@@ -38,6 +38,35 @@ public class Ewidget {
       return oWidg;
    }
 
+   public static Ewidget Widg( String name ) {
+
+      Ewidget wFound;
+      ArrayList<Ewidget> arrw;
+      String sWidgName;
+      name = name.toLowerCase();
+      int iPos = name.indexOf( '.' );
+      if ( iPos < 0 )
+         return null;
+      wFound = Ewindow.Wnd( name.substring( 0,iPos ) );
+      if ( wFound == null )
+         return null;
+      do {
+         iPos = name.indexOf( '.',iPos+1 );
+         sWidgName = ( iPos < 0 )? name : name.substring( 0,iPos );
+         arrw = wFound.aWidgets;
+         wFound = null;
+         for ( Ewidget w : arrw)
+            if( w.sName.equals( sWidgName ) ) {
+               wFound = w;
+               break;
+            }
+         if ( wFound == null )
+            return null;
+      } while (iPos > 0);
+
+      return wFound;
+   }
+
    public void AddProps( String[] arr ) {
 
       if ( !(arr == null) ) {
