@@ -34,6 +34,9 @@ public class Egui {
    private static String sMenu = "";
    private static int iStackLen = 0;
 
+   private static boolean bPacket = false;
+   private static String sPacketBuf = "";
+
    public static int Init( String sOpt ) {
 
       if ( !sOpt.isEmpty() ) {
@@ -235,25 +238,29 @@ public class Egui {
 
    public static boolean WriteOut( String text ) {
 
-      try {
-         sout_outStreamWriter.write( 43 ); // '+'
-         sout_outStreamWriter.write( text );
-         sout_outStreamWriter.write( 10 );
-         sout_outStreamWriter.flush();
-      }
-      catch( Exception exception ) {
-         bEndProg = true;
-         System.out.println( exception );
-         return false;
-      }
+      if( bPacket ) {
+         sPacketBuf += "," + text;
+      } else {
+         try {
+            sout_outStreamWriter.write( 43 ); // '+'
+            sout_outStreamWriter.write( text );
+            sout_outStreamWriter.write( 10 );
+            sout_outStreamWriter.flush();
+         }
+         catch( Exception exception ) {
+            bEndProg = true;
+            System.out.println( exception );
+            return false;
+         }
 
-      iLastReadOut = 0;
-      do {
-         if ( !ReadIn( true ) )
-            break;
-         if ( !ReadOut( true ) )
-            break;
-      } while (iLastReadOut==0);
+         iLastReadOut = 0;
+         do {
+            if ( !ReadIn( true ) )
+               break;
+            if ( !ReadOut( true ) )
+               break;
+         } while (iLastReadOut==0);
+      }
       return true;
    }
 
@@ -309,7 +316,7 @@ public class Egui {
          return false;
 
       cmd = sBuff.substring( 3, nPos2 );
-      System.out.println( cmd );
+      //System.out.println( cmd );
       if( cmd.equals( "runproc" ) || cmd.equals( "runfunc" ) ) {
          if( cmd.equals( "runproc" ) )
             WriteIn( "Ok" );
@@ -496,6 +503,19 @@ public class Egui {
 
       Egui.WriteOut( s );
       return Egui.GetStringOut().substring( 1 );
+   }
+
+   public static void BeginPacket() {
+
+      bPacket = true;
+      sPacketBuf = "[\"packet\"";
+   }
+
+   public static void EndPacket() {
+
+      bPacket = false;
+      WriteOut( sPacketBuf + "]" );
+      sPacketBuf = "";
    }
 
    public static String[] Split( String input, char cSep ) {
