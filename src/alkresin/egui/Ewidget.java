@@ -130,4 +130,24 @@ public class Ewidget {
 
       Egui.WriteOut( s );
    }
+
+   public void Move( int iLeft, int iTop, int iWidth, int iHeight ) {
+
+      String s = "[\"set\",\"" + sName + "\",\"move\",[" + iLeft + "," + iTop + "," +
+         iWidth + "," + iHeight + "]";
+      Egui.WriteOut( s );
+   }
+
+   public void Enable( boolean bEnable ) {
+
+      String s = "[\"set\",\"" + sName + "\",\"enable\"," + ((bEnable)? "t":"f") + "]";
+      Egui.WriteOut( s );
+   }
+
+   public void Hide( boolean bHide ) {
+
+      String s = "[\"set\",\"" + sName + "\",\"hide\"," + ((bHide)? "t":"f") + "]";
+      Egui.WriteOut( s );
+   }
+
 }
