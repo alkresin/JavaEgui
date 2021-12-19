@@ -361,7 +361,7 @@ public class Egui {
             } else {
                Ewindow o = Ewindow.Wnd( sName );
                if ( o != null )
-                  o.Delete();
+                  o.delete();
             }
          }
       }
@@ -426,6 +426,51 @@ public class Egui {
       if ( !sMenu.endsWith( "[" ) )
          sMenu += ",";
       sMenu += "[\"-\"]";
+   }
+
+   public static void MenuItemEnable( String sWndName, String sMenuName, int id, boolean bValue ) {
+
+      String s = "[\"menu\",\"enable\",\"" + sWndName + "\",\"" + sMenuName + "\"," +
+         id + ((bValue)? ",true" : ",false") + "]";
+      Egui.WriteOut( s );
+   }
+
+   public static void MenuItemCheck( String sWndName, String sMenuName, int id, boolean bValue ) {
+
+      String s = "[\"menu\",\"check\",\"" + sWndName + "\",\"" + sMenuName + "\"," +
+         id + ((bValue)? ",true" : ",false") + "]";
+      Egui.WriteOut( s );
+   }
+
+   public static void SetVar( String sVarName, String sValue ) {
+
+      String s = "[\"setvar\",\"" + sVarName + "\",\"" + sValue + "\"]";
+      Egui.WriteOut( s );
+   }
+
+   public static String GetVar( String sVarName ) {
+
+      String s = "[\"getvar\",\"" + sVarName + "\"]";
+      Egui.WriteOut( s );
+      return Egui.GetStringOut().substring( 1 );
+   }
+
+   public static void SetImagePath( String sPath ) {
+
+      String s = "[\"setparam\",\"bmppath\",\"" + sPath + "\"]";
+      Egui.WriteOut( s );
+   }
+
+   public static void SetPath( String sPath ) {
+
+      String s = "[\"setparam\",\"path\",\"" + sPath + "\"]";
+      Egui.WriteOut( s );
+   }
+
+   public static void SetDateFormat( String sFormat ) {
+
+      String s = "[\"setparam\",\"datef\",\"" + sFormat + "\"]";
+      Egui.WriteOut( s );
    }
 
    public static void MsgInfo( String sMessage, String sTitle ) {

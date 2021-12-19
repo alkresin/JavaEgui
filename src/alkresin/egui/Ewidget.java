@@ -115,6 +115,42 @@ public class Ewidget {
       Egui.WriteOut( s );
    }
 
+   public void SetParam( String sParam, String sText ) {
+      String s = "[\"set\",\"" + sName + "\",\"xparam\",[" + Egui.String2Json(sParam) +
+         "," + Egui.String2Json(sText) + ",\"" + ((sText.startsWith("{|"))? "b":"d") + "\"]]";
+      Egui.WriteOut( s );
+   }
+
+   public void SetParam( String sParam, int iParam ) {
+      String s = "[\"set\",\"" + sName + "\",\"xparam\",[" + Egui.String2Json(sParam) +
+        "," +  iParam + ",\"d\"]]";
+      Egui.WriteOut( s );
+   }
+
+   public void SetParam( String sParam, boolean bParam ) {
+      String s = "[\"set\",\"" + sName + "\",\"xparam\",[" + Egui.String2Json(sParam) +
+        "," +  ((bParam)? "true":"false") + ",\"d\"]]";
+      Egui.WriteOut( s );
+   }
+
+   public void SetParam( String sParam, Efont oParam ) {
+      String s = "[\"set\",\"" + sName + "\",\"xparam\",[" + Egui.String2Json(sParam) +
+         ",\"" + oParam.sName + "\",\"o\"]]";
+      Egui.WriteOut( s );
+   }
+
+   public void SetParam( String sParam, Estyle oParam ) {
+      String s = "[\"set\",\"" + sName + "\",\"xparam\",[" + Egui.String2Json(sParam) +
+         ",\"" + oParam.sName + "\",\"o\"]]";
+      Egui.WriteOut( s );
+   }
+
+   public void SetParam( String sParam, Ewidget oParam ) {
+      String s = "[\"set\",\"" + sName + "\",\"xparam\",[" + Egui.String2Json(sParam) +
+         ",\"" + oParam.sName + "\",\"o\"]]";
+      Egui.WriteOut( s );
+   }
+
    public void SetCallbackProc( String cbName, String sCode ) {
 
       String s = "[\"set\",\"" + sName + "\",\"cb." + cbName + "\",\"" + sCode + "\"]";

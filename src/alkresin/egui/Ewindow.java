@@ -69,7 +69,14 @@ public class Ewindow extends Ewidget {
       return null;
    }
 
-   public void Delete() {
+   public void Close() {
+
+      String s = "[\"close\",\"" + sName + "\"]";
+      Egui.WriteOut( s );
+      this.delete();
+   }
+
+   public void delete() {
 
       if ( !sName.equals( "main" ) )
          for (int i = 0; i < aDialogs.size(); i++) {
